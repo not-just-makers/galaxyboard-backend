@@ -2,6 +2,7 @@ package com.justnotmakers.galaxyboard.api;
 
 import com.justnotmakers.galaxyboard.api.exception.ApiExceptionMapper;
 import com.justnotmakers.galaxyboard.api.json.GSONProvider;
+import com.justnotmakers.galaxyboard.api.resources.LedResource;
 import com.justnotmakers.galaxyboard.api.resources.StatusResource;
 import com.justnotmakers.galaxyboard.config.ApiConfig;
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
@@ -24,12 +25,14 @@ public class GalaxyboardApi {
     @Inject
     public GalaxyboardApi(
         ApiConfig apiConfig,
+        LedResource ledResource,
         StatusResource statusResource
     ) {
         this.apiConfig = apiConfig;
         ResteasyDeployment deployment = new ResteasyDeployment();
 
         List<Object> resources = new ArrayList<>();
+        resources.add(ledResource);
         resources.add(statusResource);
         deployment.setResources(resources);
 
