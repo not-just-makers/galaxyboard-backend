@@ -6,10 +6,7 @@ import com.justnotmakers.galaxyboard.api.model.Pixel;
 import com.justnotmakers.galaxyboard.api.model.Status;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/led")
@@ -31,6 +28,16 @@ public class LedResource {
         for (Pixel pixel : pixels) {
             ledStrip.setPixel(pixel.getPosition(), pixel.getColor());
         }
+        ledStrip.render();
+        return Status.OK;
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{position}")
+    public Status setPixel(@PathParam("position") Integer position, Color color) {
+        ledStrip.setPixel(position, color);
         ledStrip.render();
         return Status.OK;
     }

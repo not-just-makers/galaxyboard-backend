@@ -17,6 +17,14 @@ public class Status {
         this.isError = isError;
     }
 
+    public static Status error(String error) {
+        return new Status(error, true);
+    }
+
+    public static Status ok(String message) {
+        return new Status(message, false);
+    }
+
     /**
      * Gets message.
      *
@@ -41,13 +49,5 @@ public class Status {
 
     public void setError(boolean error) {
         isError = error;
-    }
-
-    public static Status error(String error) {
-        return new Status(error, true);
-    }
-
-    public static Status ok(String message) {
-        return new Status(message, false);
     }
 }
